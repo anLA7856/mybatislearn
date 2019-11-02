@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="anla.learn.mybatis.hello.dao.auto.UserMapper" >
+  <resultMap id="BaseResultMap" type="anla.learn.mybatis.hello.model.auto.User" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="actived" property="actived" jdbcType="INTEGER" />
+    <result column="activate_code" property="activateCode" jdbcType="VARCHAR" />
+    <result column="join_time" property="joinTime" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="head_url" property="headUrl" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="job" property="job" jdbcType="VARCHAR" />
+    <result column="like_count" property="likeCount" jdbcType="INTEGER" />
+    <result column="post_count" property="postCount" jdbcType="INTEGER" />
+    <result column="scan_count" property="scanCount" jdbcType="INTEGER" />
+    <result column="follow_count" property="followCount" jdbcType="INTEGER" />
+    <result column="follower_count" property="followerCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uid, email, password, actived, activate_code, join_time, username, description, head_url, 
+    position, school, job, like_count, post_count, scan_count, follow_count, follower_count
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="anla.learn.mybatis.hello.model.auto.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitSize >= 0" >
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="anla.learn.mybatis.hello.model.auto.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="anla.learn.mybatis.hello.model.auto.User" >
+    insert into user (uid, email, password, 
+      actived, activate_code, join_time, 
+      username, description, head_url, 
+      position, school, job, 
+      like_count, post_count, scan_count, 
+      follow_count, follower_count)
+    values (#{uid,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{actived,jdbcType=INTEGER}, #{activateCode,jdbcType=VARCHAR}, #{joinTime,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{headUrl,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
+      #{likeCount,jdbcType=INTEGER}, #{postCount,jdbcType=INTEGER}, #{scanCount,jdbcType=INTEGER}, 
+      #{followCount,jdbcType=INTEGER}, #{followerCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="anla.learn.mybatis.hello.model.auto.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="actived != null" >
+        actived,
+      </if>
+      <if test="activateCode != null" >
+        activate_code,
+      </if>
+      <if test="joinTime != null" >
+        join_time,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="headUrl != null" >
+        head_url,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="job != null" >
+        job,
+      </if>
+      <if test="likeCount != null" >
+        like_count,
+      </if>
+      <if test="postCount != null" >
+        post_count,
+      </if>
+      <if test="scanCount != null" >
+        scan_count,
+      </if>
+      <if test="followCount != null" >
+        follow_count,
+      </if>
+      <if test="followerCount != null" >
+        follower_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="actived != null" >
+        #{actived,jdbcType=INTEGER},
+      </if>
+      <if test="activateCode != null" >
+        #{activateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null" >
+        #{joinTime,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="headUrl != null" >
+        #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="likeCount != null" >
+        #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="postCount != null" >
+        #{postCount,jdbcType=INTEGER},
+      </if>
+      <if test="scanCount != null" >
+        #{scanCount,jdbcType=INTEGER},
+      </if>
+      <if test="followCount != null" >
+        #{followCount,jdbcType=INTEGER},
+      </if>
+      <if test="followerCount != null" >
+        #{followerCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="anla.learn.mybatis.hello.model.auto.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actived != null" >
+        actived = #{record.actived,jdbcType=INTEGER},
+      </if>
+      <if test="record.activateCode != null" >
+        activate_code = #{record.activateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinTime != null" >
+        join_time = #{record.joinTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headUrl != null" >
+        head_url = #{record.headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null" >
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null" >
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.job != null" >
+        job = #{record.job,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeCount != null" >
+        like_count = #{record.likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.postCount != null" >
+        post_count = #{record.postCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.scanCount != null" >
+        scan_count = #{record.scanCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.followCount != null" >
+        follow_count = #{record.followCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.followerCount != null" >
+        follower_count = #{record.followerCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set uid = #{record.uid,jdbcType=INTEGER},
+      email = #{record.email,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      actived = #{record.actived,jdbcType=INTEGER},
+      activate_code = #{record.activateCode,jdbcType=VARCHAR},
+      join_time = #{record.joinTime,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      head_url = #{record.headUrl,jdbcType=VARCHAR},
+      position = #{record.position,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      job = #{record.job,jdbcType=VARCHAR},
+      like_count = #{record.likeCount,jdbcType=INTEGER},
+      post_count = #{record.postCount,jdbcType=INTEGER},
+      scan_count = #{record.scanCount,jdbcType=INTEGER},
+      follow_count = #{record.followCount,jdbcType=INTEGER},
+      follower_count = #{record.followerCount,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="anla.learn.mybatis.hello.model.auto.User" >
+    update user
+    <set >
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="actived != null" >
+        actived = #{actived,jdbcType=INTEGER},
+      </if>
+      <if test="activateCode != null" >
+        activate_code = #{activateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="joinTime != null" >
+        join_time = #{joinTime,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="headUrl != null" >
+        head_url = #{headUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="likeCount != null" >
+        like_count = #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="postCount != null" >
+        post_count = #{postCount,jdbcType=INTEGER},
+      </if>
+      <if test="scanCount != null" >
+        scan_count = #{scanCount,jdbcType=INTEGER},
+      </if>
+      <if test="followCount != null" >
+        follow_count = #{followCount,jdbcType=INTEGER},
+      </if>
+      <if test="followerCount != null" >
+        follower_count = #{followerCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="anla.learn.mybatis.hello.model.auto.User" >
+    update user
+    set email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      actived = #{actived,jdbcType=INTEGER},
+      activate_code = #{activateCode,jdbcType=VARCHAR},
+      join_time = #{joinTime,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      head_url = #{headUrl,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      post_count = #{postCount,jdbcType=INTEGER},
+      scan_count = #{scanCount,jdbcType=INTEGER},
+      follow_count = #{followCount,jdbcType=INTEGER},
+      follower_count = #{followerCount,jdbcType=INTEGER}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+</mapper>
