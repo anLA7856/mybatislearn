@@ -3,6 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <properties>
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/> <!-- 启用默认值特性 -->
+    </properties>
+
+    <typeAliases>
+        <!-- 设置别名 -->
+        <typeAlias alias="User" type="anla.learn.mybatis.hello.model.auto.User" />
+    </typeAliases>
+<!--
+    <databaseIdProvider type="DB_VENDOR">
+        数据库厂商标识
+    </databaseIdProvider>
+-->
+
+
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
