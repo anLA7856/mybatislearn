@@ -1,7 +1,12 @@
-package anla.learn.mybatis.hello.model.auto;
+package anla.learn.mybatis.interceptor.model;
 
 import lombok.Data;
 
+/**
+ * @author luoan
+ * @version 1.0
+ * @date 2019/11/4 13:07
+ **/
 @Data
 public class User {
     private Integer uid;
