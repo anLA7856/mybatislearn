@@ -20,7 +20,10 @@
     <result column="follow_count" property="followCount" jdbcType="INTEGER" />
     <result column="follower_count" property="followerCount" jdbcType="INTEGER" />
   </resultMap>
-  <select id="getByIndex" resultType="anla.learn.mybatis.interceptor.model.User">
+    <update id="updateByUser">
+      update user set description = #{user.description} , school = #{user.school} where uid = #{user.uid}
+    </update>
+    <select id="getByIndex" resultType="anla.learn.mybatis.interceptor.model.User">
     select * from user where uid = #{id};
   </select>
 

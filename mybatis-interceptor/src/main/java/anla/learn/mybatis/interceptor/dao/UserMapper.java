@@ -15,4 +15,11 @@ public interface UserMapper {
      * @return
      */
     User getByIndex(@Param("id") Integer id);
+
+    /**
+     * 用于更新 description 和 school，以id为更新变量
+     * @param user
+     * @return
+     */
+    Integer updateByUser(@Param("user") User user);
 }

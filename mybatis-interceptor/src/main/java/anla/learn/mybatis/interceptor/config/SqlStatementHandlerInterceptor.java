@@ -9,13 +9,14 @@ import java.sql.Connection;
 import java.util.Properties;
 
 /**
+ * prepare, parameterize, batch, update, query
  * @author luoan
  * @version 1.0
  * @date 2019/11/4 13:00
  **/
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
 @Slf4j
-public class SQLStatsInterceptor implements Interceptor {
+public class SqlStatementHandlerInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {

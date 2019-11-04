@@ -7,8 +7,11 @@
         <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/> <!-- 启用默认值特性 -->
     </properties>
     <plugins>
-        <plugin interceptor="anla.learn.mybatis.interceptor.config.SQLStatsInterceptor">
+        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlStatementHandlerInterceptor">
             <property name="dialect" value="mysql"/>
+        </plugin>
+        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlExecutorInterceptor">
+
         </plugin>
     </plugins>
 

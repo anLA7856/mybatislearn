@@ -23,16 +23,25 @@ public class Application {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory =
                 new SqlSessionFactoryBuilder().build(inputStream);
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            User user = session.selectOne(
-                    "anla.learn.mybatis.interceptor.dao.UserMapper.getByIndex", 1);
-            log.info("user :{}", user);
-        }
+//        try (SqlSession session = sqlSessionFactory.openSession()) {
+//            User user = session.selectOne(
+//                    "anla.learn.mybatis.interceptor.dao.UserMapper.getByIndex", 1);
+//            log.info("user :{}", user);
+//        }
+//
+//        try (SqlSession session = sqlSessionFactory.openSession()) {
+//            UserMapper mapper = session.getMapper(UserMapper.class);
+//            User user = mapper.getByIndex(1);
+//            log.info("user :{}", user);
+//        }
 
         try (SqlSession session = sqlSessionFactory.openSession()) {
             UserMapper mapper = session.getMapper(UserMapper.class);
             User user = mapper.getByIndex(1);
             log.info("user :{}", user);
+            Integer size = mapper.updateByUser(user);
+            User userNew = mapper.getByIndex(1);
+            log.info("user :{}", userNew);
         }
     }
 }
