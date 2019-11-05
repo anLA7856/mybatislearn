@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.util.Properties;
 
 /**
+ * 只是打印sql
+ *
  * prepare, parameterize, batch, update, query
  * @author luoan
  * @version 1.0

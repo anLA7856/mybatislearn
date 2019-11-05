@@ -11,6 +11,7 @@ import java.util.Properties;
 
 /**
  * update, query, flushStatements, commit, rollback, getTransaction, close, isClosed
+ * 作用，当更新 description 时候，会写死一段字
  * @author anLA7856
  * @date 19-11-4 下午10:24
  * @description
