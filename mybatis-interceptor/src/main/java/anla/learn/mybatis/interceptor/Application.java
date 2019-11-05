@@ -35,9 +35,19 @@ public class Application {
 //            log.info("user :{}", user);
 //        }
 
+//        try (SqlSession session = sqlSessionFactory.openSession()) {
+//            UserMapper mapper = session.getMapper(UserMapper.class);
+//            User user = mapper.getByIndex(1);
+//            log.info("user :{}", user);
+//            Integer size = mapper.updateByUser(user);
+//            User userNew = mapper.getByIndex(1);
+//            log.info("user :{}", userNew);
+//        }
+
+
         try (SqlSession session = sqlSessionFactory.openSession()) {
             UserMapper mapper = session.getMapper(UserMapper.class);
-            User user = mapper.getByIndex(1);
+            User user = mapper.getByIndex(11);
             log.info("user :{}", user);
             Integer size = mapper.updateByUser(user);
             User userNew = mapper.getByIndex(1);
