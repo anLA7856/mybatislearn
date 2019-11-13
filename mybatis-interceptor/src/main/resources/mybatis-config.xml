@@ -6,18 +6,18 @@
     <properties>
         <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/> <!-- 启用默认值特性 -->
     </properties>
-    <plugins>
-        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlStatementHandlerInterceptor">
-            <property name="dialect" value="mysql"/>
-        </plugin>
-        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlExecutorInterceptor" >
+<!--    <plugins>-->
+<!--        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlStatementHandlerInterceptor">-->
+<!--            <property name="dialect" value="mysql"/>-->
+<!--        </plugin>-->
+<!--        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlExecutorInterceptor" >-->
 
-        </plugin>
-        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlParameterHandlerInterceptor" >
-        </plugin>
-        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlResultSetHandlerInterceptor" >
-        </plugin>
-    </plugins>
+<!--        </plugin>-->
+<!--        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlParameterHandlerInterceptor" >-->
+<!--        </plugin>-->
+<!--        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlResultSetHandlerInterceptor" >-->
+<!--        </plugin>-->
+<!--    </plugins>-->
 
     <environments default="development">
         <environment id="development">

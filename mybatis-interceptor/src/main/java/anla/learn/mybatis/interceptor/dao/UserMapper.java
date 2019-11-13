@@ -3,6 +3,8 @@ package anla.learn.mybatis.interceptor.dao;
 import anla.learn.mybatis.interceptor.model.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author luoan
  * @version 1.0
@@ -22,4 +24,12 @@ public interface UserMapper {
      * @return
      */
     Integer updateByUser(@Param("user") User user);
+
+    /**
+     * 根据条件，获取查询
+     * @param actived
+     * @param list
+     * @return
+     */
+    List<User> listAllActivedUsers(@Param("actived") Integer actived, @Param("list") List<Integer> list);
 }

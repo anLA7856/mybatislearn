@@ -27,4 +27,17 @@
     select * from user where uid = #{id};
   </select>
 
+  <select id="listAllActivedUsers" resultMap="BaseResultMap">
+    select * from user
+    <where >
+        <if test="actived != null and actived == 1">
+          actived = #{actived}
+        </if>
+        and uid in
+        <foreach collection="list" item="item" index="" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+    </where>
+  </select>
+
 </mapper>
