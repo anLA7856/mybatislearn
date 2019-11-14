@@ -2,6 +2,7 @@ package anla.learn.mybatis.interceptor.dao;
 
 import anla.learn.mybatis.interceptor.model.User;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -32,4 +33,12 @@ public interface UserMapper {
      * @return
      */
     List<User> listAllActivedUsers(@Param("actived") Integer actived, @Param("list") List<Integer> list);
+
+    /**
+     * 增加记录
+     * @param user
+     * @return
+     */
+    @Select("INSERT INTO `user`(`email`, `password`, `actived`, `activate_code`, `join_time`, `username`, `head_url`, `position`, `school`, `job`, `like_count`, `post_count`, `scan_count`, `follow_count`, `follower_count`, `description`) VALUES (#{email}, #{password}, #{actived}, #{activateCode}, #{}, 'anLA7856', 'http:serser', 'shanghai', 'jialidun', 'coder', 2, 3, 4, 5, 6, NULL);")
+    Integer addNewOne(@Param("user") User user);
 }

@@ -36,4 +36,24 @@ public class MybatisTest {
         List<User> user = mapper.listAllActivedUsers(actived, list);
         log.info("user :{}", user);
     }
+
+    public void insertNewOne(){
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        User user = new User();
+        user.setDescription("test desc");
+        user.setSchool("test school");
+        user.setActivateCode("test activated code");
+        user.setActived(0);
+        user.setEmail("test@test.test.test");
+        user.setFollowCount(1);
+        user.setFollowerCount(12);
+        user.setHeadUrl("no url");
+        user.setJob("test job");
+        user.setJoinTime("not time");
+        user.setLikeCount(3);
+        user.setScanCount(21);
+        mapper.addNewOne(user);
+        log.info("user :{}", user);
+    }
 }
