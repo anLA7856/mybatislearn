@@ -1,5 +1,7 @@
+import anla.learn.mybatis.interceptor.dao.DepartmentMapper;
 import anla.learn.mybatis.interceptor.dao.UserMapper;
 import anla.learn.mybatis.interceptor.model.User;
+import anla.learn.mybatis.interceptor.model.UserLazyDepartment;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -37,23 +39,59 @@ public class MybatisTest {
         log.info("user :{}", user);
     }
 
-    public void insertNewOne(){
+    @Test
+    public void testSelectByAnnotation(){
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        int uid = 1;
+        User user = mapper.getByAnnotationIndex(uid);
+        log.info("user :{}", user);
+    }
+
+    @Test
+    public void testInsertNewOne(){
         SqlSession session = sqlSessionFactory.openSession();
         UserMapper mapper = session.getMapper(UserMapper.class);
         User user = new User();
-        user.setDescription("test desc");
-        user.setSchool("test school");
-        user.setActivateCode("test activated code");
-        user.setActived(0);
         user.setEmail("test@test.test.test");
+        user.setPassword("test password");
+        user.setActived(0);
+        user.setActivateCode("test activated code");
+        user.setJoinTime("not time");
+        user.setUsername("test username");
+        user.setHeadUrl("no url");
+        user.setPosition("test position");
+        user.setSchool("test school");
+        user.setJob("test job");
+        user.setLikeCount(3);
+        user.setPostCount(45);
+        user.setScanCount(21);
         user.setFollowCount(1);
         user.setFollowerCount(12);
-        user.setHeadUrl("no url");
-        user.setJob("test job");
-        user.setJoinTime("not time");
-        user.setLikeCount(3);
-        user.setScanCount(21);
-        mapper.addNewOne(user);
+        user.setDescription("test desc");
+        int result = mapper.addNewOne(user);
         log.info("user :{}", user);
+    }
+
+    @Test
+    public void testLazySelect(){
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        int id = 1;
+        UserLazyDepartment userLazyDepartment = mapper.getByIndexLazy(id);
+        log.info("user :{}", userLazyDepartment);
+        log.info("user :{}", userLazyDepartment.getDepartment());
+    }
+
+
+    @Test
+    public void testLazySelectModifyLazyLoadTriggerMethods(){
+        SqlSession session = sqlSessionFactory.openSession();
+        session.getConfiguration().getLazyLoadTriggerMethods().clear();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        int id = 1;
+        UserLazyDepartment userLazyDepartment = mapper.getByIndexLazy(id);
+        log.info("user :{}", userLazyDepartment);
+        log.info("user :{}", userLazyDepartment.getDepartment());
     }
 }

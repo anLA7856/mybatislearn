@@ -20,7 +20,12 @@
     <result column="follow_count" property="followCount" jdbcType="INTEGER" />
     <result column="follower_count" property="followerCount" jdbcType="INTEGER" />
   </resultMap>
-    <update id="updateByUser">
+  <insert id="addNewOne">
+    INSERT INTO `user`(`email`, `password`, `actived`, `activate_code`, `join_time`, `username`, `head_url`, `position`, `school`, `job`, `like_count`, `post_count`, `scan_count`, `follow_count`, `follower_count`, `description`)
+    VALUES (#{user.email}, #{user.password}, #{user.actived}, #{user.activateCode}, #{user.joinTime}, #{user.username}, #{user.headUrl}, #{user.position}, #{user.school}, #{user.job}, #{user.likeCount}, #{user.postCount}, #{user.scanCount}, #{user.followCount}, #{user.followerCount}, #{user.description})
+
+  </insert>
+  <update id="updateByUser">
       update user set description = #{user.description} , school = #{user.school} where uid = #{user.uid}
     </update>
     <select id="getByIndex" resultType="anla.learn.mybatis.interceptor.model.User">
@@ -38,6 +43,19 @@
           #{item}
         </foreach>
     </where>
+  </select>
+
+  <resultMap id="LazyResultMap" type="anla.learn.mybatis.interceptor.model.UserLazyDepartment" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT"/>
+    <!-- 懒加载 -->
+    <association property="department" select="anla.learn.mybatis.interceptor.dao.DepartmentMapper.getByIndex" javaType="anla.learn.mybatis.interceptor.model.Department" column="department_id"/>
+  </resultMap>
+
+  <select id="getByIndexLazy" resultMap="LazyResultMap">
+    select uid, email, password, department_id from user where uid = #{id}
   </select>
 
 </mapper>

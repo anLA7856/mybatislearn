@@ -6,6 +6,14 @@
     <properties>
         <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/> <!-- 启用默认值特性 -->
     </properties>
+
+    <settings>
+        <!-- 打开延迟加载的开关 -->
+        <setting name="lazyLoadingEnabled" value="true" />
+        <!-- 将积极加载改为消极加载(及按需加载) -->
+        <setting name="aggressiveLazyLoading" value="false" />
+    </settings>
+
 <!--    <plugins>-->
 <!--        <plugin interceptor="anla.learn.mybatis.interceptor.config.SqlStatementHandlerInterceptor">-->
 <!--            <property name="dialect" value="mysql"/>-->
@@ -32,5 +40,6 @@
     </environments>
     <mappers>
         <mapper resource="mappers/UserMapper.xml"/>
+        <mapper resource="mappers/DepartmentMapper.xml"/>
     </mappers>
 </configuration>

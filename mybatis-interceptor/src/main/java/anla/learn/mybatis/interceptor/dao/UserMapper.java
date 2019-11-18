@@ -1,6 +1,7 @@
 package anla.learn.mybatis.interceptor.dao;
 
 import anla.learn.mybatis.interceptor.model.User;
+import anla.learn.mybatis.interceptor.model.UserLazyDepartment;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -39,6 +40,20 @@ public interface UserMapper {
      * @param user
      * @return
      */
-    @Select("INSERT INTO `user`(`email`, `password`, `actived`, `activate_code`, `join_time`, `username`, `head_url`, `position`, `school`, `job`, `like_count`, `post_count`, `scan_count`, `follow_count`, `follower_count`, `description`) VALUES (#{email}, #{password}, #{actived}, #{activateCode}, #{}, 'anLA7856', 'http:serser', 'shanghai', 'jialidun', 'coder', 2, 3, 4, 5, 6, NULL);")
     Integer addNewOne(@Param("user") User user);
+
+    /**
+     * 通过uid获取一个
+     * @param uid
+     * @return
+     */
+    @Select("select * from user where uid = #{uid}")
+    User getByAnnotationIndex(int uid);
+
+    /**
+     * 懒加载
+     * @param id
+     * @return
+     */
+    UserLazyDepartment getByIndexLazy(@Param("id") int id);
 }
