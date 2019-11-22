@@ -17,4 +17,11 @@ public interface DepartmentMapper {
      * @return
      */
     Department getByIndex(@Param("id") int id);
+
+    /**
+     * 使用 mybatis 自增主键创建。
+     * @param department
+     * @return
+     */
+    int insertWithGenertoorKey(@Param("department") Department department);
 }

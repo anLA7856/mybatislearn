@@ -1,5 +1,6 @@
 import anla.learn.mybatis.interceptor.dao.DepartmentMapper;
 import anla.learn.mybatis.interceptor.dao.UserMapper;
+import anla.learn.mybatis.interceptor.model.Department;
 import anla.learn.mybatis.interceptor.model.User;
 import anla.learn.mybatis.interceptor.model.UserLazyDepartment;
 import lombok.extern.slf4j.Slf4j;
@@ -93,5 +94,17 @@ public class MybatisTest {
         UserLazyDepartment userLazyDepartment = mapper.getByIndexLazy(id);
         log.info("user :{}", userLazyDepartment);
         log.info("user :{}", userLazyDepartment.getDepartment());
+    }
+
+
+    @Test
+    public void testKeyGenerator(){
+        SqlSession session = sqlSessionFactory.openSession(true);
+        DepartmentMapper mapper = session.getMapper(DepartmentMapper.class);
+        Department department = new Department();
+        department.setName("自增部门");
+        int count = mapper.insertWithGenertoorKey(department);
+        log.info("count :{}", count);
+        log.info("department:{}", department);
     }
 }
