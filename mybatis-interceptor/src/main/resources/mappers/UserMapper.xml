@@ -50,8 +50,13 @@
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="department_id" property="departmentId" jdbcType="BIGINT"/>
-    <!-- 懒加载 -->
-    <association property="department" select="anla.learn.mybatis.interceptor.dao.DepartmentMapper.getByIndex" javaType="anla.learn.mybatis.interceptor.model.Department" column="department_id"/>
+    <!-- 懒加载
+    虚假懒加载， select 为 insert,delete 等其他，不会报错，但是执行不回成功，也就是不回修改
+    <association property="department" fetchType="lazy" select="anla.learn.mybatis.interceptor.dao.DepartmentMapper.getByIndex" column="department_id"/>
+
+    -->
+    <association property="department" fetchType="lazy" select="anla.learn.mybatis.interceptor.dao.UserMapper.updateById" column="department_id"/>
+
   </resultMap>
 
   <select id="getByIndexLazy" resultMap="LazyResultMap">

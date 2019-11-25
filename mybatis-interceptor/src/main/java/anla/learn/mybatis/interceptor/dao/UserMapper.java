@@ -2,8 +2,10 @@ package anla.learn.mybatis.interceptor.dao;
 
 import anla.learn.mybatis.interceptor.model.User;
 import anla.learn.mybatis.interceptor.model.UserLazyDepartment;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -56,4 +58,21 @@ public interface UserMapper {
      * @return
      */
     UserLazyDepartment getByIndexLazy(@Param("id") int id);
+
+    /**
+     * 更新
+     * @param id
+     * @param desc
+     * @return
+     */
+    @Update("update user set description = #{desc} where uid=#{id}")
+    int updateById(@Param("id") int id,@Param("desc") String desc);
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    @Delete("delete from user where uid = #{id}")
+    int deleteById(@Param("id") int id);
 }

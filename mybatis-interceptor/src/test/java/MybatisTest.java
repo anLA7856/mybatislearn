@@ -1,4 +1,3 @@
-import anla.learn.mybatis.interceptor.dao.DepartmentMapper;
 import anla.learn.mybatis.interceptor.dao.UserMapper;
 import anla.learn.mybatis.interceptor.model.User;
 import anla.learn.mybatis.interceptor.model.UserLazyDepartment;
@@ -86,12 +85,34 @@ public class MybatisTest {
 
     @Test
     public void testLazySelectModifyLazyLoadTriggerMethods(){
-        SqlSession session = sqlSessionFactory.openSession();
+        SqlSession session = sqlSessionFactory.openSession(true);
         session.getConfiguration().getLazyLoadTriggerMethods().clear();
         UserMapper mapper = session.getMapper(UserMapper.class);
         int id = 1;
         UserLazyDepartment userLazyDepartment = mapper.getByIndexLazy(id);
         log.info("user :{}", userLazyDepartment);
         log.info("user :{}", userLazyDepartment.getDepartment());
+//        session.commit();
     }
+
+    @Test
+    public void testUpdate(){
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        int id = 1;
+        String desc = "123123";
+        int count = mapper.updateById(id, desc);
+        log.info("count:{}", count);
+        session.commit();
+    }
+    @Test
+    public void testDelete(){
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        int id = 1;
+        String desc = "123123";
+        int count = mapper.deleteById(id);
+        log.info("count:{}", count);
+    }
+
 }
