@@ -24,4 +24,11 @@ public interface DepartmentMapper {
      * @return
      */
     int insertWithGenertoorKey(@Param("department") Department department);
+
+    /**
+     * 配置 select Key 方式提供自增主键
+     * @param department
+     * @return
+     */
+    int insertWithSelectKeyGenertoorKey(@Param("department")Department department);
 }
