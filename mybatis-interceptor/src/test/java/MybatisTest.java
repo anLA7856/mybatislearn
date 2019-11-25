@@ -1,4 +1,5 @@
 import anla.learn.mybatis.interceptor.dao.UserMapper;
+import anla.learn.mybatis.interceptor.model.Department;
 import anla.learn.mybatis.interceptor.model.User;
 import anla.learn.mybatis.interceptor.model.UserLazyDepartment;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -113,6 +115,68 @@ public class MybatisTest {
         String desc = "123123";
         int count = mapper.deleteById(id);
         log.info("count:{}", count);
+    }
+
+
+
+    @Test
+    public void testKeyGenerator(){
+        SqlSession session = sqlSessionFactory.openSession(true);
+        DepartmentMapper mapper = session.getMapper(DepartmentMapper.class);
+        Department department = new Department();
+        department.setName("自增部门");
+        int count = mapper.insertWithGenertoorKey(department);
+        log.info("count :{}", count);
+        log.info("department:{}", department);
+    }
+
+    @Test
+    public void testKeyGeneratorSelectKey(){
+        SqlSession session = sqlSessionFactory.openSession(true);
+        DepartmentMapper mapper = session.getMapper(DepartmentMapper.class);
+        Department department = new Department();
+        department.setName("自增部门 加 100 ？");
+        int count = mapper.insertWithSelectKeyGenertoorKey(department);
+        log.info("count :{}", count);
+        log.info("department:{}", department);
+    }
+
+
+    @Test
+    public void testJdbc3PrepareStatement(){
+        try {
+            String url = "jdbc:mysql://localhost:3306/df?serverTimezone=GMT";
+            String sql = "INSERT INTO department(name) VALUES (?)";
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(url, "root", "123456");
+            String[] columnNames = {"ids", "name"};
+            PreparedStatement stmt = conn.prepareStatement(sql, columnNames);
+            stmt.setString(1, "test jdbc3 ");
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt(1);
+                System.out.println("----------" + id);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void testPlugin() throws IOException {
+        String resource = "mybatis-config-plugin.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory =
+                new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession session = sqlSessionFactory.openSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        Integer actived = 1;
+        List<Integer> list = Arrays.asList(1, 2);
+        List<User> user = mapper.listAllActivedUsers(actived, list);
+        log.info("user :{}", user);
     }
 
 }

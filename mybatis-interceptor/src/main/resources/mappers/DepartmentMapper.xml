@@ -5,6 +5,15 @@
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="name" property="name" jdbcType="VARCHAR" />
     </resultMap>
+    <insert id="insertWithGenertoorKey" useGeneratedKeys="true"  keyColumn="id" keyProperty="id">
+        insert into department (name) values (#{department.name})
+    </insert>
+    <insert id="insertWithSelectKeyGenertoorKey">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT if(max(id) is null,1,max(id)+10) as newId FROM department
+        </selectKey>
+        insert into department (id, name) values (#{id}, #{department.name})
+    </insert>
     <select id="getByIndex" resultMap="BaseResultMap">
         select * from department where id = #{id}
     </select>
