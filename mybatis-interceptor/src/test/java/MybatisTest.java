@@ -1,3 +1,4 @@
+import anla.learn.mybatis.interceptor.dao.DepartmentMapper;
 import anla.learn.mybatis.interceptor.dao.UserMapper;
 import anla.learn.mybatis.interceptor.model.Department;
 import anla.learn.mybatis.interceptor.model.User;
@@ -11,7 +12,10 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.List;
 
@@ -135,7 +139,7 @@ public class MybatisTest {
         SqlSession session = sqlSessionFactory.openSession(true);
         DepartmentMapper mapper = session.getMapper(DepartmentMapper.class);
         Department department = new Department();
-        department.setName("自增部门 加 100 ？");
+        department.setName("add to 100");
         int count = mapper.insertWithSelectKeyGenertoorKey(department);
         log.info("count :{}", count);
         log.info("department:{}", department);
