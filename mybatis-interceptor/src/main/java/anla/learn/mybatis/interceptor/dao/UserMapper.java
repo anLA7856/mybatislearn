@@ -53,6 +53,13 @@ public interface UserMapper {
     User getByAnnotationIndex(int uid);
 
     /**
+     * 获取所有
+     * @return
+     */
+    @Select("select * from user")
+    List<User> getAllUsers();
+
+    /**
      * 懒加载
      * @param id
      * @return
@@ -75,4 +82,12 @@ public interface UserMapper {
      */
     @Delete("delete from user where uid = #{id}")
     int deleteById(@Param("id") int id);
+
+    /**
+     * 不用处理pageNum， 和 pageSize，而 pageHelper 会处理
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    List<User> getPageUsers(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize);
 }

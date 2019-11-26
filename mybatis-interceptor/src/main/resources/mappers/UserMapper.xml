@@ -63,5 +63,8 @@
   <select id="getByIndexLazy" resultMap="LazyResultMap">
     select uid, email, password, department_id from user where uid = #{id}
   </select>
+    <select id="getPageUsers" resultType="anla.learn.mybatis.interceptor.model.User">
+       select * from user
+    </select>
 
 </mapper>
