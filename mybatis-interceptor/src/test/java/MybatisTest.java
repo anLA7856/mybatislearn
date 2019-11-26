@@ -1,3 +1,4 @@
+import anla.learn.mybatis.interceptor.dao.DepartmentMapper;
 import anla.learn.mybatis.interceptor.dao.UserMapper;
 import anla.learn.mybatis.interceptor.model.Department;
 import anla.learn.mybatis.interceptor.model.User;
