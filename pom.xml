@@ -12,6 +12,7 @@
         <module>mybatis-hello</module>
         <module>mybatis-generator-limit</module>
         <module>mybatis-interceptor</module>
+        <module>mybatis-spring</module>
     </modules>
 
     <dependencies>
