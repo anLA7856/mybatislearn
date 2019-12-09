@@ -58,4 +58,13 @@ ScopedProxyMode：即返回的bean，是否要代理。
             4. 经过排序，添加后，就需要执行 对应的 `BeanDefinitionRegistryPostProcessors`
             5. 执行对应的 postProcessors
             6. todo 这里以后分析 post-processor细细读。https://www.cnblogs.com/jiaoqq/p/7678037.html
-    
+    6. 执行 `registerBeanPostProcessors(beanFactory);` 执行bean 创建时拦截器
+        1. 进入 `AbstractApplicationContext` 的 `registerBeanPostProcessors` 方法
+            1. 获取 `postProcessorNames`。
+            2. 循环 `postProcessorNames` 判断优先级从而放入不同的List中，包括 `priorityOrderedPostProcessors`、`internalPostProcessors`、`nonOrderedPostProcessorNames`
+                1. 调用 `AbstractBeanFactory` 的 `getBean` 获取一个Bean。
+                    1. 调用 `transformedBeanName(name);` 获取bean name
+                    2. 调用 `DefaultSingletonBeanRegistry` 的 `getSingleton` 获取 一个单例
+                        1. 通过本类的一个Map获取一个singletonObject， `Object singletonObject = this.singletonObjects.get(beanName);`
+                        2. 尝试去获取
+                    3. 如果返回的singleton为空，那么判断下是否已经创建中。（并发）    
