@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="anla.learn.mybatis.mybatisspring.dao.UserMapper" >
+  <cache />
+  <resultMap id="BaseResultMap" type="anla.learn.mybatis.interceptor.model.User" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="actived" property="actived" jdbcType="INTEGER" />
+    <result column="activate_code" property="activateCode" jdbcType="VARCHAR" />
+    <result column="join_time" property="joinTime" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="head_url" property="headUrl" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="job" property="job" jdbcType="VARCHAR" />
+    <result column="like_count" property="likeCount" jdbcType="INTEGER" />
+    <result column="post_count" property="postCount" jdbcType="INTEGER" />
+    <result column="scan_count" property="scanCount" jdbcType="INTEGER" />
+    <result column="follow_count" property="followCount" jdbcType="INTEGER" />
+    <result column="follower_count" property="followerCount" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="addNewOne">
+    INSERT INTO `user`(`email`, `password`, `actived`, `activate_code`, `join_time`, `username`, `head_url`, `position`, `school`, `job`, `like_count`, `post_count`, `scan_count`, `follow_count`, `follower_count`, `description`)
+    VALUES (#{user.email}, #{user.password}, #{user.actived}, #{user.activateCode}, #{user.joinTime}, #{user.username}, #{user.headUrl}, #{user.position}, #{user.school}, #{user.job}, #{user.likeCount}, #{user.postCount}, #{user.scanCount}, #{user.followCount}, #{user.followerCount}, #{user.description})
+
+  </insert>
+  <update id="updateByUser">
+      update user set description = #{user.description} , school = #{user.school} where uid = #{user.uid}
+    </update>
+    <select id="getByIndex" resultType="anla.learn.mybatis.interceptor.model.User">
+    select * from user where uid = #{id};
+  </select>
+
+  <select id="listAllActivedUsers" resultMap="BaseResultMap">
+    select * from user
+    <where >
+        <if test="param1 != null and param1 == 1">
+          actived = #{actived}
+        </if>
+        and uid in
+        <foreach collection="list" item="item" index="" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+    </where>
+  </select>
+
+  <resultMap id="LazyResultMap" type="anla.learn.mybatis.interceptor.model.UserLazyDepartment" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT"/>
+    <!-- 懒加载
+    虚假懒加载， select 为 insert,delete 等其他，不会报错，但是执行不回成功，也就是不回修改
+    <association property="department" fetchType="lazy" select="anla.learn.mybatis.interceptor.dao.DepartmentMapper.getByIndex" column="department_id"/>
+
+    -->
+    <association property="department" fetchType="lazy" select="anla.learn.mybatis.interceptor.dao.UserMapper.updateById" column="department_id"/>
+
+  </resultMap>
+
+  <select id="getByIndexLazy" resultMap="LazyResultMap">
+    select uid, email, password, department_id from user where uid = #{id}
+  </select>
+    <select id="getPageUsers" resultType="anla.learn.mybatis.interceptor.model.User">
+       select * from user
+    </select>
+
+</mapper>
