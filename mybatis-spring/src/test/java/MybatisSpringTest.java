@@ -105,6 +105,9 @@ public class MybatisSpringTest {
     // 1. MapperScan
     // 2. MapperScans
 
+
+    // todo 增加 eventListener 用例
+    // todo 增加 @Bean 注解用例
     @Test
     void testInterfaceScan() {
         applicationContext.register(AppConfigWithPackageScan.class);
