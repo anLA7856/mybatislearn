@@ -68,3 +68,5 @@ ScopedProxyMode：即返回的bean，是否要代理。
                         1. 通过本类的一个Map获取一个singletonObject， `Object singletonObject = this.singletonObjects.get(beanName);`
                         2. 尝试去获取
                     3. 如果返回的singleton为空，那么判断下是否已经创建中。（并发）    
+                    4. 判断是否已经创建过 beanFactory。
+                    5. 首次创建 则 进入 `markBeanAsCreated`
