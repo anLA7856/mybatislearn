@@ -1,4 +1,5 @@
 import anla.lean.mybatis.mybatisspring.config.ApplicationListenerConfiguration;
+import anla.lean.mybatis.mybatisspring.config.BeanFactoryPostProcessorConfiguration;
 import anla.lean.mybatis.mybatisspring.config.CommonConfiguration;
 import anla.lean.mybatis.mybatisspring.config.DogBeanPostProcessor;
 import anla.lean.mybatis.mybatisspring.dao.UserMapper;
@@ -116,7 +117,8 @@ public class MybatisSpringTest {
         applicationContext.register(AppConfigWithPackageScan.class,
                 DogBeanPostProcessor.class,
                 CommonConfiguration.class,
-                ApplicationListenerConfiguration.class);
+                ApplicationListenerConfiguration.class,
+                BeanFactoryPostProcessorConfiguration.class);
 
         startContext();
 
