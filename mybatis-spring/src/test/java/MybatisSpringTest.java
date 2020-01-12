@@ -1,3 +1,6 @@
+import anla.lean.mybatis.mybatisspring.config.ApplicationListenerConfiguration;
+import anla.lean.mybatis.mybatisspring.config.CommonConfiguration;
+import anla.lean.mybatis.mybatisspring.config.DogBeanPostProcessor;
 import anla.lean.mybatis.mybatisspring.dao.UserMapper;
 import anla.lean.mybatis.mybatisspring.model.User;
 import com.alibaba.druid.pool.DruidDataSource;
@@ -12,7 +15,6 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -82,7 +84,8 @@ public class MybatisSpringTest {
         dataSource.setUsername("root");
         dataSource.setPassword("123456");
         dataSource.setMaxWait(2000);
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        // dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         return dataSource;
     }
 
@@ -110,7 +113,10 @@ public class MybatisSpringTest {
     // todo 增加 @Bean 注解用例
     @Test
     void testInterfaceScan() {
-        applicationContext.register(AppConfigWithPackageScan.class);
+        applicationContext.register(AppConfigWithPackageScan.class,
+                DogBeanPostProcessor.class,
+                CommonConfiguration.class,
+                ApplicationListenerConfiguration.class);
 
         startContext();
 
@@ -119,6 +125,7 @@ public class MybatisSpringTest {
 
         UserMapper userMapper = applicationContext.getBean("userMapper", UserMapper.class);
         List<User> list =  userMapper.getAllUsers();
+        System.out.println("list, " + list);
         log.info("list:{}", list);
     }
 
