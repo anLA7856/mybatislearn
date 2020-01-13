@@ -1,7 +1,4 @@
-import anla.lean.mybatis.mybatisspring.config.ApplicationListenerConfiguration;
-import anla.lean.mybatis.mybatisspring.config.BeanFactoryPostProcessorConfiguration;
-import anla.lean.mybatis.mybatisspring.config.CommonConfiguration;
-import anla.lean.mybatis.mybatisspring.config.DogBeanPostProcessor;
+import anla.lean.mybatis.mybatisspring.config.*;
 import anla.lean.mybatis.mybatisspring.dao.UserMapper;
 import anla.lean.mybatis.mybatisspring.model.User;
 import com.alibaba.druid.pool.DruidDataSource;
@@ -107,18 +104,19 @@ public class MybatisSpringTest {
 
     // 以下包含两个测试用例
     // 1. MapperScan
-    // 2. MapperScans
+    // 2. 多种类型bean 注册。
 
-
-    // todo 增加 eventListener 用例
-    // todo 增加 @Bean 注解用例
     @Test
     void testInterfaceScan() {
         applicationContext.register(AppConfigWithPackageScan.class,
                 DogBeanPostProcessor.class,
                 CommonConfiguration.class,
                 ApplicationListenerConfiguration.class,
-                BeanFactoryPostProcessorConfiguration.class);
+                BeanFactoryPostProcessorConfiguration.class,
+                BeanDefinitionRegistryPostProcessorConfiguration.class);
+        // 这样方式，就可以将 BeanFactoryPostProcessor 放到  PostProcessorRegistrationDelegate 中执行
+        applicationContext.addBeanFactoryPostProcessor(new BeanFactoryPostProcessorConfiguration());
+        applicationContext.addBeanFactoryPostProcessor(new BeanDefinitionRegistryPostProcessorConfiguration());
 
         startContext();
 
