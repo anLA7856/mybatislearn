@@ -1,6 +1,7 @@
 package anla.lean.mybatis.mybatisspring.config;
 
 import anla.lean.mybatis.mybatisspring.model.Dog;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommonConfiguration {
 
+    @Bean
     public Dog dog(){
         return new Dog();
     }

@@ -1,5 +1,7 @@
+import anla.lean.mybatis.mybatisspring.aspect.ReturnAspect;
 import anla.lean.mybatis.mybatisspring.config.*;
 import anla.lean.mybatis.mybatisspring.dao.UserMapper;
+import anla.lean.mybatis.mybatisspring.model.Dog;
 import anla.lean.mybatis.mybatisspring.model.User;
 import com.alibaba.druid.pool.DruidDataSource;
 import lombok.extern.slf4j.Slf4j;
@@ -105,6 +107,7 @@ public class MybatisSpringTest {
     // 以下包含两个测试用例
     // 1. MapperScan
     // 2. 多种类型bean 注册。
+    // 3. 包括 Spring aop 例子
 
     @Test
     void testInterfaceScan() {
@@ -113,7 +116,8 @@ public class MybatisSpringTest {
                 CommonConfiguration.class,
                 ApplicationListenerConfiguration.class,
                 BeanFactoryPostProcessorConfiguration.class,
-                BeanDefinitionRegistryPostProcessorConfiguration.class);
+                BeanDefinitionRegistryPostProcessorConfiguration.class,
+                ReturnAspect.class);
         // 这样方式，就可以将 BeanFactoryPostProcessor 放到  PostProcessorRegistrationDelegate 中执行
         applicationContext.addBeanFactoryPostProcessor(new BeanFactoryPostProcessorConfiguration());
         applicationContext.addBeanFactoryPostProcessor(new BeanDefinitionRegistryPostProcessorConfiguration());
@@ -127,7 +131,14 @@ public class MybatisSpringTest {
         List<User> list =  userMapper.getAllUsers();
         System.out.println("list, " + list);
         log.info("list:{}", list);
+
+        // 以下测试 Spring aop
+        Dog dog = applicationContext.getBean(Dog.class);
+        dog.afterWangwang();
+
     }
+
+
 
 
 }

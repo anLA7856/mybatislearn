@@ -1,6 +1,7 @@
 package anla.lean.mybatis.mybatisspring.model;
 
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
 
 import java.io.Serializable;
 
@@ -19,5 +20,14 @@ public class Dog implements Serializable {
 
     public String afterWangwang(){
         return "It's a Wangwang that ?";
+    }
+
+
+    /**
+     * 用于测试Spring AOP
+     * @return
+     */
+    public String hello(){
+        return "hello";
     }
 }
