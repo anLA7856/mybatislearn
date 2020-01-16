@@ -1,4 +1,3 @@
-import anla.lean.mybatis.mybatisspring.aspect.ReturnAspect;
 import anla.lean.mybatis.mybatisspring.config.*;
 import anla.lean.mybatis.mybatisspring.dao.UserMapper;
 import anla.lean.mybatis.mybatisspring.model.Dog;
@@ -116,8 +115,7 @@ public class MybatisSpringTest {
                 CommonConfiguration.class,
                 ApplicationListenerConfiguration.class,
                 BeanFactoryPostProcessorConfiguration.class,
-                BeanDefinitionRegistryPostProcessorConfiguration.class,
-                ReturnAspect.class);
+                BeanDefinitionRegistryPostProcessorConfiguration.class);
         // 这样方式，就可以将 BeanFactoryPostProcessor 放到  PostProcessorRegistrationDelegate 中执行
         applicationContext.addBeanFactoryPostProcessor(new BeanFactoryPostProcessorConfiguration());
         applicationContext.addBeanFactoryPostProcessor(new BeanDefinitionRegistryPostProcessorConfiguration());
