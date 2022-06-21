@@ -15,7 +15,7 @@
         <spring.version>5.2.2.RELEASE</spring.version>
         <spring-batch.version>4.2.1.RELEASE</spring-batch.version>
         <junit.version>5.5.2</junit.version>
-        <mysql.version>8.0.11</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <sprint.boot.version>2.2.1.RELEASE</sprint.boot.version>
     </properties>
 
